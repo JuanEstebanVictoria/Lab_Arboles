@@ -28,6 +28,10 @@ public class Arbol {
     public int determinarNivel(int valor){
         return determinarNivel(raiz, valor, 0);
     }
+    /**
+     * Punto 3
+     *Se realizó aparte
+     */
 
     /**
      * Punto 4
@@ -82,6 +86,10 @@ public class Arbol {
     public boolean determinarArbolesIguales(Arbol otro){
         return determinarArbolesIguales(this.raiz,otro.raiz);
     }
+    /**
+     * Punto 10
+     *Se realizó aparte
+     */
 
 
 
