@@ -11,7 +11,10 @@ public class Arbol {
         this.raiz = raiz;
     }
 
-    // Punto 1: Obtener la altura de un árbol
+    /**
+     *  Punto 1: Obtener la altura de un árbol
+     * 
+     */  
     public int obtenerAltura(Nodo nodo) {
         if (nodo == null) {
             return 0;
@@ -26,38 +29,9 @@ public class Arbol {
         return obtenerAltura(raiz);
     }
 
-    // Punto 2: Retornar la altura del árbol sin usar recursividad
-    public static int retornarAlturaNoR(Nodo nodo) {
-        if (nodo == null) {
-            return 0;
-        }
-
-        // Cola para realizar el recorrido en anchura
-        Queue<Nodo> cola = new LinkedList<>();
-        cola.add(nodo);
-        int altura = 0;
-
-        while (!cola.isEmpty()) {
-            int tamanioNivel = cola.size();
-
-            for (int i = 0; i < tamanioNivel; i++) {
-                Nodo actual = cola.poll();
-
-                if (actual.izq != null) {
-                    cola.add(actual.izq);
-                }
-
-                if (actual.der != null) {
-                    cola.add(actual.der);
-                }
-            }
-            altura++;
-        }
-        return altura;
-    }
-
+    
     /**
-     * Punto 2
+     * Punto 2: Retorna el nivel de un elemento en el árbol.
      *
      */
     public int determinarNivel(Nodo nodo, int valor, int nivel) {
@@ -79,9 +53,16 @@ public class Arbol {
     public int determinarNivel(int valor){
         return determinarNivel(raiz, valor, 0);
     }
+    
+    /**
+     * Punto 3: Retorna el nivel de un elemento en el árbol.
+     *
+     */
+
 
     /**
-     * Punto 4
+     * Punto 4:Obtener el valor más pequeño que esté guardado en el árbol. (no recursivo y recursivo)
+     * 
      */
 
     
@@ -114,9 +95,20 @@ public class Arbol {
     }
 
     /**
-     * Punto 7
+     * Punto 5: Imprimir un árbol de manera horizontal. ejemplo:
+     * 
      */
 
+     /**
+     * Punto 6: Elimine un elemento del árbol.
+     * 
+     */
+    
+
+    /**
+     * Punto 7:Verificar si dos árboles son idénticos.
+     * 
+     */
     public boolean determinarArbolesIguales(Nodo raiz1, Nodo raiz2){
 
 
@@ -133,4 +125,43 @@ public class Arbol {
     public boolean determinarArbolesIguales(Arbol otro){
         return determinarArbolesIguales(this.raiz,otro.raiz);
     }
+
+    /*
+     * Punto 8: Recorrido en amplitud (use una Cola).
+     * 
+     */
+
+    /*
+     * Punto 9: Retornar la altura del árbol sin usar recursividad
+     * 
+     */
+    public static int retornarAlturaNoR(Nodo nodo) {
+        if (nodo == null) {
+            return 0;
+        }
+
+        // Cola para realizar el recorrido en anchura
+        Queue<Nodo> cola = new LinkedList<>();
+        cola.add(nodo);
+        int altura = 0;
+
+        while (!cola.isEmpty()) {
+            int tamanioNivel = cola.size();
+
+            for (int i = 0; i < tamanioNivel; i++) {
+                Nodo actual = cola.poll();
+
+                if (actual.izq != null) {
+                    cola.add(actual.izq);
+                }
+
+                if (actual.der != null) {
+                    cola.add(actual.der);
+                }
+            }
+            altura++;
+        }
+        return altura;
+    }
+
 }
