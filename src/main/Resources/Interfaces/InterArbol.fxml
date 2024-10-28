@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ArbolController">
+    <items>
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <Label text="Árbol 1" />
+                <HBox spacing="5.0">
+                    <TextField fx:id="numeroArbol1" promptText="Ingrese un número" />
+                    <Button onAction="#agregarNumeroArbol1" prefHeight="25.0" prefWidth="62.0" text="Agregar" />
+                    <Button onAction="#manejarNivelArbol1" prefHeight="25.0" prefWidth="62.0" text="Nivel" />
+                </HBox>
+                <HBox spacing="5.0">
+                    <TextField fx:id="inputEliminarArbol1" promptText="Ingrese un número a eliminar" />
+                    <Button onAction="#eliminarNumeroArbol1" prefHeight="25.0" prefWidth="62.0" text="Eliminar" />
+                </HBox>
+                <ComboBox fx:id="comboBoxArbol1" prefWidth="250.0" promptText="Seleccione una operación">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Obtener altura" />
+                            <String fx:value="Valor más pequeño recursivo" />
+                            <String fx:value="Valor más pequeño no recursivo" />
+                            <String fx:value="Verificar igualdad de árboles" />
+                            <String fx:value="Recorrer en amplitud" />
+                            <String fx:value="Obtener altura sin recursividad" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <TextArea fx:id="resultadoArbol1" prefHeight="200.0" prefWidth="200.0" promptText="Resultado" wrapText="true" />
+                <Pane fx:id="panelArbol1" prefHeight="300" prefWidth="400" />
+            </children>
+        </VBox>
+
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <Label text="Árbol 2" />
+                <HBox spacing="5.0">
+                    <TextField fx:id="numeroArbol2" promptText="Ingrese un número" />
+                    <Button onAction="#agregarNumeroArbol2" prefHeight="25.0" prefWidth="59.0" text="Agregar" />
+                    <Button onAction="#manejarNivelArbol2" prefHeight="25.0" prefWidth="59.0" text="Nivel" />
+                </HBox>
+                <HBox spacing="5.0">
+                    <TextField fx:id="inputEliminarArbol2" promptText="Ingrese un número a eliminar" />
+                    <Button onAction="#eliminarNumeroArbol2" prefHeight="25.0" prefWidth="60.0" text="Eliminar" />
+                </HBox>
+                <ComboBox fx:id="comboBoxArbol2" prefWidth="250.0" promptText="Seleccione una operación">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Obtener altura" />
+                            <String fx:value="Valor más pequeño recursivo" />
+                            <String fx:value="Valor más pequeño no recursivo" />
+                            <String fx:value="Verificar igualdad de árboles" />
+                            <String fx:value="Recorrer en amplitud" />
+                            <String fx:value="Obtener altura sin recursividad" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <TextArea fx:id="resultadoArbol2" prefHeight="200.0" prefWidth="200.0" promptText="Resultado" wrapText="true" />
+                <Pane fx:id="panelArbol2" prefHeight="300" prefWidth="400" />
+            </children>
+        </VBox>
+
+    </items>
+</SplitPane>

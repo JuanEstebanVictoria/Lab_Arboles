@@ -2,14 +2,13 @@ package Arboles;
 
 public class Nodo {
 
-    Nodo izq, der;
+    public Nodo izq, der;
+    public int data;
 
-    int data;
-
-    public Nodo() {
-        this.izq = new Nodo();
-        this.der = new Nodo();
+    public Nodo(int data) {
         this.data = data;
+        this.izq = null;
+        this.der = null;
     }
 
     public Nodo getIzq() {
