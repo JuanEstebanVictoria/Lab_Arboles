@@ -4,68 +4,88 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Arbol {
-
     private Nodo raiz;
 
-    public Arbol(Nodo raiz) {
-        this.raiz = raiz;
+    public Arbol() {
+        this.raiz = null;
     }
 
-    /**
-     *  Punto 1: Obtener la altura de un árbol
-     * 
-     */  
-    public int obtenerAltura(Nodo nodo) {
+    public Nodo getRaiz() {
+        return raiz;
+    }
+
+    public void insertar(int valor) {
+        raiz = insertarRec(raiz, valor);
+    }
+
+    private Nodo insertarRec(Nodo nodo, int valor) {
+        // Caso base: si el árbol está vacío, insertar aquí
         if (nodo == null) {
-            return 0;
+            nodo = new Nodo(valor);
+            return nodo;
+        }
+
+        if (valor < nodo.data) {
+            nodo.izq = insertarRec(nodo.izq, valor);
+        } else if (valor > nodo.data) {
+            nodo.der = insertarRec(nodo.der, valor);
+        }
+
+        return nodo;
+    }
+
+    public boolean existe(int valor) {
+        return existeRec(raiz, valor);
+    }
+
+    private boolean existeRec(Nodo nodo, int valor) {
+        if (nodo == null) {
+            return false;
+        }
+        if (nodo.data == valor) {
+            return true;
+        }
+        return valor < nodo.data ? existeRec(nodo.izq, valor) : existeRec(nodo.der, valor);
+    }
+
+    // Método público para eliminar un nodo
+    public void eliminar(int valor) {
+        raiz = eliminarRec(raiz, valor);
+    }
+
+    // Método recursivo para eliminar un nodo
+    private Nodo eliminarRec(Nodo nodo, int valor) {
+        if (nodo == null) {
+            return null;
+        }
+        if (valor < nodo.data) {
+            nodo.izq = eliminarRec(nodo.izq, valor);
+        } else if (valor > nodo.data) {
+            nodo.der = eliminarRec(nodo.der, valor);
         } else {
-            int alturaIzq = obtenerAltura(nodo.izq);
-            int alturaDer = obtenerAltura(nodo.der);
-            return Math.max(alturaIzq, alturaDer) + 1;
+            if (nodo.izq == null) {
+                return nodo.der;
+            } else if (nodo.der == null) {
+                return nodo.izq;
+            }
+            nodo.data = encontrarMinimo(nodo.der);
+            nodo.der = eliminarRec(nodo.der, nodo.data);
         }
+        return nodo;
     }
 
-    public int obtenerAltura() {
-        return obtenerAltura(raiz);
+    // Método auxiliar para encontrar el valor mínimo en un árbol
+    private int encontrarMinimo(Nodo nodo) {
+        int minimo = nodo.data;
+        while (nodo.izq != null) {
+            minimo = nodo.izq.data;
+            nodo = nodo.izq;
+        }
+        return minimo;
     }
-
-    
     /**
-     * Punto 2: Retorna el nivel de un elemento en el árbol.
-     *
+     * Punto 4
      */
-    public int determinarNivel(Nodo nodo, int valor, int nivel) {
-
-        if(nodo == null){
-            return -1;
-        }
-        if(nodo.data==valor){
-            return nivel;
-        }
-        int nivelIzq= determinarNivel(nodo.izq, valor, nivel+1);
-        if(nivelIzq!=-1){
-            return nivelIzq;
-        }
-        return determinarNivel(nodo.der, valor, nivel+1);
-
-    }
-
-    public int determinarNivel(int valor){
-        return determinarNivel(raiz, valor, 0);
-    }
-    
-    /**
-     * Punto 3: Retorna el nivel de un elemento en el árbol.
-     *
-     */
-
-
-    /**
-     * Punto 4:Obtener el valor más pequeño que esté guardado en el árbol. (no recursivo y recursivo)
-     * 
-     */
-
-    
     // Método recursivo
     public int valorMinimoRecursivo(Nodo nodo) {
         if (nodo.izq == null) {
@@ -94,21 +114,6 @@ public class Arbol {
         return actual.data;
     }
 
-    /**
-     * Punto 5: Imprimir un árbol de manera horizontal. ejemplo:
-     * 
-     */
-
-     /**
-     * Punto 6: Elimine un elemento del árbol.
-     * 
-     */
-    
-
-    /**
-     * Punto 7:Verificar si dos árboles son idénticos.
-     * 
-     */
     public boolean determinarArbolesIguales(Nodo raiz1, Nodo raiz2){
 
 
@@ -125,15 +130,52 @@ public class Arbol {
     public boolean determinarArbolesIguales(Arbol otro){
         return determinarArbolesIguales(this.raiz,otro.raiz);
     }
-
-    /*
-     * Punto 8: Recorrido en amplitud (use una Cola).
-     * 
+    /**
+     * Punto 1
      */
+    public int obtenerAltura(Nodo nodo){
+        if(nodo== null){
+            return 0;
+        }
+        int alturaIzq= obtenerAltura(nodo.izq);
+        int alturaDer= obtenerAltura(nodo.der);
 
+
+        return Math.max(alturaIzq,alturaDer)+1;
+    }
+
+    public int obtenerAltura(){
+        return obtenerAltura(raiz);
+    }
+    /**
+     * Punto 8
+     */
+    public String recorridoAmplitud() {
+        if (raiz == null) {
+            return "El árbol está vacío.";
+        }
+
+        StringBuilder resultado = new StringBuilder();
+        Queue<Nodo> cola = new LinkedList<>();
+        cola.add(raiz);
+
+        while (!cola.isEmpty()) {
+            Nodo actual = cola.poll();
+            resultado.append(actual.data).append(" ");
+
+            if (actual.izq != null) {
+                cola.add(actual.izq);
+            }
+            if (actual.der != null) {
+                cola.add(actual.der);
+            }
+        }
+
+        return resultado.toString().trim();
+    }
     /*
-     * Punto 9: Retornar la altura del árbol sin usar recursividad
-     * 
+     * Punto 9
+     *
      */
     public static int retornarAlturaNoR(Nodo nodo) {
         if (nodo == null) {
@@ -162,6 +204,28 @@ public class Arbol {
             altura++;
         }
         return altura;
+    }
+    /**
+     * Punto 2
+     *
+     */
+    public int determinarNivel(Nodo nodo, int valor, int nivel) {
+        if (nodo == null) {
+            return -1; // No encontrado
+        }
+        System.out.println("Revisando nodo: " + nodo.data + ", nivel: " + nivel); // Depuración
+        if (nodo.data == valor) {
+            return nivel; // Encontrado
+        }
+        int nivelIzq = determinarNivel(nodo.izq, valor, nivel + 1);
+        if (nivelIzq != -1) {
+            return nivelIzq; // Encontrado en la izquierda
+        }
+        return determinarNivel(nodo.der, valor, nivel + 1); // Buscar en la derecha
+    }
+
+    public int determinarNivel(int valor){
+        return determinarNivel(raiz, valor, 0);
     }
 
 }
